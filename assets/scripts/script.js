@@ -6,7 +6,10 @@ const choices = document.querySelector("#choices");
 const questionTitle = document.querySelector("#question-title")
 const correctAnswerSfx = new Audio('./assets/sfx/correct.wav');
 const inCorrectAnswerSfx = new Audio('./assets/sfx/incorrect.wav');
+const endScreen = document.querySelector("#end-screen");
 let startingTime = 75;
+
+let time;
 
 // Questions Object
 const questionsObj = [
@@ -47,6 +50,12 @@ function startTimer(){
     }
 }
 
+function pauseTimer(){
+    
+    clearInterval(time);
+       
+}
+
 
 function renderQuestion(index) {
     if(index <= 3){
@@ -75,7 +84,9 @@ function renderQuestion(index) {
                     // If there are no more questions
                     else{
 
-                        console.log("No More questions")
+                        pauseTimer()
+                        questions.classList.add("hide");
+                        endScreen.classList.remove("hide");
 
                     }
                     
@@ -88,8 +99,9 @@ function renderQuestion(index) {
                         renderQuestion(index);
                     }
                     else{
-
-                        console.log("No More questions")
+                        pauseTimer()
+                        questions.classList.add("hide");
+                        endScreen.classList.remove("hide");
 
                     }
                     
@@ -121,7 +133,7 @@ function startQuiz(){
     startScreen.style.display = "none";
     timer.textContent = startingTime;
     displayQuestion();
-    setInterval(startTimer, 1000);
+    time = setInterval(startTimer, 1000);
 
 }
 
