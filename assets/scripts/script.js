@@ -7,6 +7,8 @@ const questionTitle = document.querySelector("#question-title")
 const correctAnswerSfx = new Audio('./assets/sfx/correct.wav');
 const inCorrectAnswerSfx = new Audio('./assets/sfx/incorrect.wav');
 const endScreen = document.querySelector("#end-screen");
+const finalScore = document.querySelector("#final-score");
+const feedback = document.querySelector("#feedback");
 let startingTime = 75;
 
 let time;
@@ -78,13 +80,20 @@ function renderQuestion(index) {
                     }
                     inCorrectAnswerSfx.play();
                     if(index < 3){
+                        feedback.innerText = 'Wrong Answer!';
+                        feedback.classList.remove("hide");
                         index+=1;
+                        setTimeout(function(){
+                            feedback.classList.add("hide");
+                        }, 2000);
                         renderQuestion(index);
                     }
                     // If there are no more questions
                     else{
 
                         pauseTimer()
+                        // Set final score
+                        finalScore.innerText = timer.textContent;
                         questions.classList.add("hide");
                         endScreen.classList.remove("hide");
 
@@ -95,11 +104,17 @@ function renderQuestion(index) {
                     //When the answer is correct, play the correct answer sfx, and ask the next question.
                     correctAnswerSfx.play();
                     if(index < 3){
+                        feedback.innerText = 'Correct!';
+                        feedback.classList.remove("hide");
                         index+=1;
+                        setTimeout(function(){
+                            feedback.classList.add("hide");
+                        }, 2000);
                         renderQuestion(index);
                     }
                     else{
                         pauseTimer()
+                        finalScore.innerText = timer.textContent;
                         questions.classList.add("hide");
                         endScreen.classList.remove("hide");
 
