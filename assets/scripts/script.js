@@ -79,13 +79,14 @@ function renderQuestion(index) {
                         timer.textContent = 0;
                     }
                     inCorrectAnswerSfx.play();
+                    feedback.innerText = 'Wrong Answer!';
+                    feedback.classList.remove("hide");
+                    setTimeout(function(){
+                        feedback.classList.add("hide");
+                    }, 2000);
                     if(index < 3){
-                        feedback.innerText = 'Wrong Answer!';
-                        feedback.classList.remove("hide");
+                        
                         index+=1;
-                        setTimeout(function(){
-                            feedback.classList.add("hide");
-                        }, 2000);
                         renderQuestion(index);
                     }
                     // If there are no more questions
@@ -103,13 +104,14 @@ function renderQuestion(index) {
                 else{
                     //When the answer is correct, play the correct answer sfx, and ask the next question.
                     correctAnswerSfx.play();
-                    if(index < 3){
-                        feedback.innerText = 'Correct!';
-                        feedback.classList.remove("hide");
+                    feedback.innerText = 'Correct!';
+                    feedback.classList.remove("hide");
+                    setTimeout(function(){
+                        feedback.classList.add("hide");
+                    }, 2000);
+                    if(index < 3){    
+                        
                         index+=1;
-                        setTimeout(function(){
-                            feedback.classList.add("hide");
-                        }, 2000);
                         renderQuestion(index);
                     }
                     else{
