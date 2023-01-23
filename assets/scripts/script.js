@@ -7,18 +7,16 @@ const questionTitle = document.querySelector("#question-title")
 let startingTime = 75;
 
 // Questions Object
-const questionsObj = {
+const questionsObj = [
 
-    question : [
-        "Inside which HTML element do we put the JavaScript?"
-    ],
-    choices : [
-        ["<js>", "<scripting>", "<script>", "<javascript>"],
+    {
+        question : "Inside which HTML element do we put the JavaScript?",
+        choices : ["<js>", "<scripting>", "<script>", "<javascript>"],
+        answer: "<script>"
 
+    }
 
-    ]
-
-}
+]
 
 
 // Start Timer
@@ -31,18 +29,33 @@ function startTimer(){
 }
 
 
-function displayQuestion(){
+function renderQuestion(index) {
 
-    let questionCount = 0;
-
-    questions.classList.remove("hide")
-    questionTitle.innerText = questionsObj.question[0];
-   
-    for(elem of questionsObj.choices[0]){
+    questionTitle.innerText = questionsObj[index].question;
+    for(elem of questionsObj[index].choices){
         const answerChoice = document.createElement("button");
         answerChoice.innerText = elem;
         choices.appendChild(answerChoice);
+        answerChoice.addEventListener("click", function() {
+            if(answerChoice.innerText != questionsObj[index].answer) {
+                console.log("Incorrect Answer!");
+            }
+            else{
+                console.log("Correct Answer!");
+            }
+        })
     }
+}
+
+
+function displayQuestion(){
+
+    //let questionCount = 0;
+
+    questions.classList.remove("hide")
+    
+    // Ask first question
+    renderQuestion(0);
     
 
 };
