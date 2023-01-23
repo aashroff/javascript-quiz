@@ -4,6 +4,8 @@ const startScreen = document.querySelector("#start-screen");
 const questions = document.querySelector("#questions");
 const choices = document.querySelector("#choices");
 const questionTitle = document.querySelector("#question-title")
+let correctAnswerSfx = new Audio('./assets/sfx/correct.wav');
+let inCorrectAnswerSfx = new Audio('./assets/sfx/incorrect.wav');
 let startingTime = 75;
 
 // Questions Object
@@ -39,9 +41,11 @@ function renderQuestion(index) {
         answerChoice.addEventListener("click", function() {
             if(answerChoice.innerText != questionsObj[index].answer) {
                 console.log("Incorrect Answer!");
+                inCorrectAnswerSfx.play();
             }
             else{
                 console.log("Correct Answer!");
+                correctAnswerSfx.play();
             }
         })
     }
