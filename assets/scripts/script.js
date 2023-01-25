@@ -9,9 +9,13 @@ const inCorrectAnswerSfx = new Audio('./assets/sfx/incorrect.wav');
 const endScreen = document.querySelector("#end-screen");
 const finalScore = document.querySelector("#final-score");
 const feedback = document.querySelector("#feedback");
+const submitScore = document.querySelector("#submit");
+
 let startingTime = 75;
 
 let time;
+
+
 
 // Questions Object
 const questionsObj = [
@@ -58,6 +62,13 @@ function pauseTimer(){
        
 }
 
+function submitFinalScore(event){
+    event.preventDefault();
+    const initials = document.getElementById("initials").value;
+    localStorage.setItem("initials", initials)
+    window.open("./highscores.html", "_self");
+}
+
 
 function renderQuestion(index) {
     if(index <= 3){
@@ -94,7 +105,9 @@ function renderQuestion(index) {
 
                         pauseTimer()
                         // Set final score
+                        
                         finalScore.innerText = timer.textContent;
+                        localStorage.setItem("finalScore", finalScore.innerText);
                         questions.classList.add("hide");
                         endScreen.classList.remove("hide");
 
@@ -110,13 +123,14 @@ function renderQuestion(index) {
                         feedback.classList.add("hide");
                     }, 2000);
                     if(index < 3){    
-                        
+
                         index+=1;
                         renderQuestion(index);
                     }
                     else{
                         pauseTimer()
                         finalScore.innerText = timer.textContent;
+                        localStorage.setItem("finalScore", finalScore.innerText);
                         questions.classList.add("hide");
                         endScreen.classList.remove("hide");
 
@@ -147,6 +161,8 @@ function displayQuestion(){
 // Execute this when the quiz is started
 function startQuiz(){
     // Set display of start screen div to none
+    localStorage.setItem("finalScore", "")
+    localStorage.setItem("initials", "")
     startScreen.style.display = "none";
     timer.textContent = startingTime;
     displayQuestion();
@@ -156,4 +172,5 @@ function startQuiz(){
 
 
 // Start Quiz
-startButton.addEventListener("click", startQuiz)
+startButton.addEventListener("click", startQuiz);
+submitScore.addEventListener("click", submitFinalScore);
