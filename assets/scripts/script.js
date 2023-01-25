@@ -66,6 +66,14 @@ function submitFinalScore(event){
     event.preventDefault();
     const initials = document.getElementById("initials").value;
     localStorage.setItem("initials", initials)
+     //read score submission
+     const highScore = localStorage.getItem("finalScore");
+     const initial = localStorage.getItem("initials");
+    const savedScores = JSON.parse(localStorage.getItem("combinedResult")) ?? [];
+    let combineCurrentScore = initial + " - " + highScore;
+    savedScores.push(combineCurrentScore);
+    localStorage.setItem("combinedResult", JSON.stringify(savedScores));
+
     window.open("./highscores.html", "_self");
 }
 

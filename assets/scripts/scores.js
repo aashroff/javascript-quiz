@@ -7,13 +7,8 @@ const highScore = localStorage.getItem("finalScore");
 
 const initial = localStorage.getItem("initials");
 
-let combineCurrentScore = initial + " - " + highScore;
 
-savedScores.push(combineCurrentScore);
 
-console.log(savedScores);
-
-localStorage.setItem("combinedResult", JSON.stringify(savedScores));
 
 if (savedScores.length > 0){
     savedScores.forEach(element => {
